@@ -8,6 +8,65 @@
 piranha.editor.addInline = function (id, toolbarId) {
     tinymce.init({
         selector: "#" + id,
+        setup: function (editor) {
+            editor.ui.registry.addButton('enhanceText', {
+                text: 'Enhance Text',
+                onAction: function () {
+                    // Open a dialog when the button is clicked
+                    editor.windowManager.open({
+                        title: 'Enhance Text',  // Dialog title
+                        body: {
+                            type: 'panel',
+                            items: [
+                                {
+                                    type: 'input',
+                                    name: 'userInput',
+                                    label: 'Desired Word Count',
+                                }
+                            ]
+                        },
+                        buttons: [
+                            {
+                                type: 'submit',
+                                text: 'Submit',
+                                primary: true
+                            },
+                            {
+                                type: 'cancel',
+                                text: 'Cancel'
+                            }
+                        ],
+                        onSubmit: function (dialogApi) {
+                            // Get the content of the textbox and the TinyMCE editor
+                            const userInput = dialogApi.getData().userInput;
+                            const editorContent = editor.getContent({ format: 'text' });
+
+                            // Perform the API call with both the content and the textbox value
+                            fetch('/api/content/enhanceText', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    text: editorContent,
+                                    wordCount: userInput // Pass the textbox value to the 
+                                }),
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    editor.setContent(data.enhancedText);  // Update editor with the enhanced text
+                                })
+                                .catch(error => {
+                                    console.error('Error enhancing text:', error);
+                                });
+
+                            dialogApi.close(); // Close the dialog after submission
+                        }
+                    });
+                }
+
+            });
+        },
         browser_spellcheck: true,
         fixed_toolbar_container: "#" + toolbarId,
         menubar: false,
