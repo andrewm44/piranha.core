@@ -10,7 +10,7 @@ piranha.editor.addInline = function (id, toolbarId) {
         selector: "#" + id,
         setup: function (editor) {
             editor.ui.registry.addButton('enhanceText', {
-                text: 'Enhance Text',
+                text: 'Enhance',
                 onAction: function () {
                     // Open a dialog when the button is clicked
                     editor.windowManager.open({
@@ -58,6 +58,59 @@ piranha.editor.addInline = function (id, toolbarId) {
                                 })
                                 .catch(error => {
                                     console.error('Error enhancing text:', error);
+                                });
+
+                            dialogApi.close(); // Close the dialog after submission
+                        }
+                    });
+                }
+
+            });
+            editor.ui.registry.addButton('embed', {
+                text: 'Embed',
+                onAction: function () {
+                    // Open a dialog when the button is clicked
+                    editor.windowManager.open({
+                        title: 'Add Embed Card',  // Dialog title
+                        body: {
+                            type: 'panel',
+                            items: [
+                                {
+                                    type: 'input',
+                                    name: 'userInput',
+                                    label: 'Link Url',
+                                }
+                            ]
+                        },
+                        buttons: [
+                            {
+                                type: 'submit',
+                                text: 'Submit',
+                                primary: true
+                            },
+                            {
+                                type: 'cancel',
+                                text: 'Cancel'
+                            }
+                        ],
+                        onSubmit: function (dialogApi) {
+                            // Get the content of the textbox and the TinyMCE editor
+                            const userInput = dialogApi.getData().userInput;
+                         //   const editorContent = editor.getContent({ format: 'text' });
+
+                            // Perform the API call with both the content and the textbox value
+                            fetch('/api/content/embedCard?linkUrl=' + userInput, {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'text/html',
+                                },
+                            })
+                                .then(response => response.text()) // Change to .text() for HTML response
+                                .then(htmlContent => {
+                                    editor.setContent(htmlContent); // Update editor with the HTML response
+                                })
+                                .catch(error => {
+                                    console.error('Error creating embed:', error);
                                 });
 
                             dialogApi.close(); // Close the dialog after submission
