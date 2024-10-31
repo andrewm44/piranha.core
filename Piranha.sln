@@ -71,6 +71,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Piranha.AspNetCore.Hosting"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NoisyVolt", "NoisyVolt", "{5A65759E-C693-4401-939A-3FB44ADFA852}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlbocWeb", "examples\SheddingSpace\AlbocWeb.csproj", "{B6970BE6-13EC-4018-B47E-9F5F1A6446A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -177,6 +179,10 @@ Global
 		{8AFA0D7F-BDD9-41E0-BC69-B2B762516F33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AFA0D7F-BDD9-41E0-BC69-B2B762516F33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AFA0D7F-BDD9-41E0-BC69-B2B762516F33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6970BE6-13EC-4018-B47E-9F5F1A6446A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6970BE6-13EC-4018-B47E-9F5F1A6446A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6970BE6-13EC-4018-B47E-9F5F1A6446A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6970BE6-13EC-4018-B47E-9F5F1A6446A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
