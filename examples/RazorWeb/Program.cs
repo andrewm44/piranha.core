@@ -12,6 +12,7 @@ using System.Security.AccessControl;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddTransient<IOpenAiService, OpenAiService>();
+builder.Services.AddHttpClient();
 
 builder.AddPiranha(options =>
 {
